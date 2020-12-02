@@ -2,13 +2,13 @@
 
 ## MSYS2のインストール
 
-*まずMSYS2をインストールする（https://www.msys2.org/）
+* まずMSYS2をインストールする（https://www.msys2.org/）
 
 ## いろいろインストール
 
-*したらMSYS2 MinGW-64bitでターミナルをひらいて
+* したらMSYS2 MinGW-64bitでターミナルをひらいて
 
-*次に、gccとmakeをインストール
+* 次に、gccとmakeをインストール
 
 `$pacman -Sy`
 
@@ -20,13 +20,13 @@
 
 ## ForRocketをダウンロード
 
-*ForRocketをgitから落としてForRocketディレクトリに移動
+* ForRocketをgitから落としてForRocketディレクトリに移動
 
 ## そのままでもコンパイルできるけど単体で完結したバイナリがほしい
 
-*適当なテキストエディタでmakefileを開く
+* 適当なテキストエディタでmakefileを開く
 
-*makefileのコンパイラオプションの項目を編集してMSYSから呼び出されるdllファイルを3つ静的リンク
+* makefileのコンパイラオプションの項目を編集してMSYSから呼び出されるdllファイルを3つ静的リンク
 
 `## Compiler Option
 
@@ -40,8 +40,8 @@ TEST_FLAGS=-O0 -g -DDEBUG`
 
 ## コンパイル！
 
-*そしたらターミナルに戻って
+* そしたらターミナルに戻って
 
 `$make release`
 
-binディレクトリにForRocket.exeができるので好きなところに移動してpowershellかコマンドプロンプトでつかう
+* binディレクトリにForRocket.exeができるので好きなところに移動してpowershellかコマンドプロンプトでつかう
