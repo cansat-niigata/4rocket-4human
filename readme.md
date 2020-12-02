@@ -8,6 +8,8 @@
 
 * したらMSYS2 MinGW-64bitでターミナルをひらいて
 
+(32bitのひとは32bitにしようね。gccもね）
+
 * 次に、gccとmakeをインストール
 
 `$pacman -Sy`
