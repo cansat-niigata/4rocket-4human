@@ -49,3 +49,5 @@ TEST_FLAGS=-O0 -g -DDEBUG
 `$make release`
 
 * binディレクトリにForRocket.exeができるので好きなところに移動してpowershellかコマンドプロンプトでつかう
+
+* えくすかりばーと同じディレクトリに置いてくれたらそれからも使える...と思う 
