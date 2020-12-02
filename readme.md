@@ -30,7 +30,8 @@
 
 * makefileのコンパイラオプションの項目を編集してMSYSから呼び出されるdllファイルを3つ静的リンク
 
-`## Compiler Option
+    
+## Compiler Option
 
 ####################################
 
@@ -38,7 +39,8 @@ CXXFLAGS=-Wall -std=gnu++11 -static -lstdc++ -lgcc -lwinpthread
 
 RELEASE_FLAGS=-O2
 
-TEST_FLAGS=-O0 -g -DDEBUG`
+TEST_FLAGS=-O0 -g -DDEBUG
+    
 
 ## コンパイル！
 
