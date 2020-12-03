@@ -25,7 +25,7 @@
 
 ### ForRocketをダウンロード
 
-* ForRocketをgitから落としてForRocketディレクトリに移動
+* ForRocketをgit(https://github.com/sus304/ForRocket)から落としてForRocketディレクトリに移動
 
 ### そのままでもコンパイルできるけど単体で完結したバイナリがほしいね？
 
