@@ -25,7 +25,7 @@
 
 ### ForRocketをダウンロード
 
-* ForRocketをgitから落としてForRocketディレクトリに移動
+* ForRocketを git(https://github.com/sus304/ForRocket) から落としてForRocketディレクトリに移動
 
 ### そのままでもコンパイルできるけど単体で完結したバイナリがほしいね？
 
@@ -53,4 +53,4 @@ TEST_FLAGS=-O0 -g -DDEBUG
 
 * binディレクトリにForRocket.exeができるので好きなところに移動してpowershellかコマンドプロンプトでつかう
 
-* excalibarと同じディレクトリに置いてくれたらそれからも使える...と思う 
+* えくすかりばと同じディレクトリに置いてくれたらそれからも使える...と思う 
