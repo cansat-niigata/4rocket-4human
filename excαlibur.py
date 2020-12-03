@@ -300,11 +300,11 @@ def makeSolverConfigJson_clicked(entry,model_name,launch_date,latitude,longitude
 	    "Stage3 Config File List": stage_config_path_3rd
     }
     
-    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'_config.json'),'w') as f:
+    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'.json'),'w') as f:
         json.dump(config_json_dict, f, indent=4, ensure_ascii=False)
 
-    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'_config.json'))
-    print(os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'_config.json is dumped')
+    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'.json'))
+    print(os.path.abspath(os.path.dirname(__file__))+'\\'+model_name+'.json is dumped')
 
 def makeNewStageConfig_clicked(configpath):
     root2 = tkinter.Toplevel()
@@ -325,7 +325,7 @@ def makeNewStageConfig_clicked(configpath):
     window2.makeFiledialogBox(frame1,rocket_configuration_file_path,'Rocket Configuration File Path>>',[('jsonファイル','.json')])
     window2.makeButton(frame1,'新規ファイルを作成する(config.json)',command=lambda:makeNewRocketConfig_clicked(rocket_configuration_file_path))
     window2.makeFiledialogBox(frame2,engine_configuration_file_path,'Engine Configuration File Path>>',[('jsonファイル','.json')])
-    window2.makeButton(frame2,'新規ファイルを作成する(config.json)',command=lambda:makeNewEngineConfig_clicked(rocket_configuration_file_path))
+    window2.makeButton(frame2,'新規ファイルを作成する(config.json)',command=lambda:makeNewEngineConfig_clicked(engine_configuration_file_path))
     window2.makeFiledialogBox(frame3,sequence_configuration_file_path,'Sequence Configuration File Path>>',[('jsonファイル','.json')])
     window2.makeButton(frame3,'新規ファイルを作成する(config.json)',command=lambda:makeNewEngineConfig_clicked(sequence_configuration_file_path))
 
@@ -341,11 +341,11 @@ def makeNewStageConfigJson_clicked(entry,name,rocket_configuration_file_path,eng
         "Sequence of Event File Path":sequence_configuration_file_path
     }
     
-    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'stage_config.json'),'w') as f:
+    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'),'w') as f:
         json.dump(config_json_dict, f, indent=4, ensure_ascii=False)
 
-    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'stage_config.json'))
-    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'_config.json is dumped')
+    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'))
+    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 def makeNewRocketConfig_clicked(configpath):
     root3 = tkinter.Toplevel()
@@ -586,14 +586,80 @@ def makeNewRocketConfigJson_clicked(entry,name,diameter,length,inert,propellant,
         }
     }
     
-    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'rocket_config.json'),'w') as f:
+    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'),'w') as f:
         json.dump(config_json_dict, f, indent=4, ensure_ascii=False)
 
-    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'rocket_config.json'))
-    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'_config.json is dumped')
+    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'))
+    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 def makeNewEngineConfig_clicked(configpath):
-    tkinter.messagebox.showinfo(title='warning!',message='工事中につき機能しません')
+    root4 = tkinter.Toplevel()
+    root4.protocol("WM_DELETE_WINDOW",lambda:terminate(root4))
+    window4 = MakeSomething2(master=root4,width=1000,height=350,title='ForRocket for Human@new engineconfig',scroll_height=0)
+
+    name = tkinter.StringVar()
+    frame0 = window4.makeFrame(0)
+    window4.makeTextBox(frame0,name,'filename>>')
+
+    nozzle_diameter = tkinter.StringVar()
+    frame1 = window4.makeFrame(1)
+    window4.makeNumberBox(frame1,nozzle_diameter,'Nozzle Exit Diameter[mm]>>',increment=0.1)
+
+    enable_thrustfile = tkinter.BooleanVar()
+    thrustfilepath = tkinter.StringVar()
+    frame2 = window4.makeFrame(2)
+    window4.makeCheckButton(frame2,enable_thrustfile,'Enable Thrust File>>')
+    window4.makeFiledialogBox(frame2,thrustfilepath,' Thrust File Path>>',[('csvファイル','.csv')])
+
+    thrust_vacuum = tkinter.StringVar()
+    propellant_mass_flowrate = tkinter.StringVar()
+    burn_duration = tkinter.StringVar()
+    
+    window4.makeText(window4.makeFrame(3),'Constant Thrust')
+    frame3 = window4.makeFrame(4)
+    window4.makeNumberBox(frame3,thrust_vacuum,'Thrust at Vacuum[N]>>')
+    window4.makeNumberBox(frame3,propellant_mass_flowrate,' Propellant Mass Flow Rate[kg/s]>>')
+    window4.makeNumberBox(frame3,burn_duration,' Burn Duration[sec]>>')
+
+    enable_engine_miss_alignment = tkinter.BooleanVar()
+    frame4 = window4.makeFrame(5)
+    window4.makeCheckButton(frame4,enable_engine_miss_alignment,'Enable Engine Miss Alignment>>')
+
+    y_axis = tkinter.StringVar()
+    z_axis = tkinter.StringVar()
+    window4.makeText(window4.makeFrame(6),'Engine Miss-Alignment')
+    frame5 = window4.makeFrame(6)
+    window4.makeNumberBox(frame5,y_axis,'y-Axis Angle[deg]>>')
+    window4.makeNumberBox(frame5,z_axis,' z-Axis Angle[deg]>>')
+    
+    window4.makeButton(window4.makeFrame(7),'Execute JSONdump',command=lambda:makeNewEngineConfigJson_clicked(configpath,name.get(),nozzle_diameter.get(),enable_thrustfile.get(),thrustfilepath.get(),thrust_vacuum.get(),propellant_mass_flowrate.get(),burn_duration.get(),enable_thrustfile.get(),y_axis.get(),z_axis.get()))
+
+    root4.mainloop()
+
+def makeNewEngineConfigJson_clicked(entry,name,nozzle_diameter,enable_thrustfile,thrustfilepath,thrust_vacuum,propellant_mass_flowrate,burn_duration,enable_engine_miss_alignment,y_axis,z_axis):
+    config_json_dict = {
+        "Nozzle Exit Diameter [mm]": nozzle_diameter,
+        "Enable Thrust File": enable_thrustfile,
+        "Thrust File": {
+            "Thrust at vacuum File Path": thrustfilepath
+        },
+        "Constant Thrust": {
+            "Thrust at vacuum [N]": thrust_vacuum,
+            "Propellant Mass Flow Rate [kg/s]": propellant_mass_flowrate,
+            "Burn Duration [sec]": burn_duration
+        },
+        "Enable Engine Miss Alignment": enable_engine_miss_alignment,
+        "Engine Miss-Alignment": {
+            "y-Axis Angle [deg]": y_axis,
+            "z-Axis Angle [deg]": z_axis
+        }
+    }
+
+    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'),'w') as f:
+        json.dump(config_json_dict, f, indent=4, ensure_ascii=False)
+
+    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'))
+    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 def makeNewSequenceConfig_clicked(configpath):
     tkinter.messagebox.showinfo(title='warning!',message='工事中につき機能しません')
