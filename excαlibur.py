@@ -662,7 +662,6 @@ def makeNewEngineConfigJson_clicked(entry,name,nozzle_diameter,enable_thrustfile
     print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 def makeNewSequenceConfig_clicked(configpath):
-    #tkinter.messagebox.showinfo(title='warning!',message='工事中につき機能しません')
     root5 = tkinter.Toplevel()
     root5.protocol("WM_DELETE_WINDOW",lambda:terminate(root5))
     window5 = MakeSomething2(master=root5,width=1000,height=600,title='ForRocket for Human@new sequence config',scroll_height=350)
@@ -707,14 +706,14 @@ def makeNewSequenceConfig_clicked(configpath):
 
     enable_stage_separation = tkinter.BooleanVar()
     stage_separation_time = tkinter.StringVar()
-    Upper_stage_mass = tkinter.StringVar()
+    upper_stage_mass = tkinter.StringVar()
     frame7 = window5.makeFrame(7)
     window5.makeText(frame7,'Upper Stage Config')
     
     frame8 = window5.makeFrame(8)
     window5.makeCheckButton(frame8,enable_stage_separation,'Enable Stage Separation>>')
     window5.makeNumberBox(frame8,stage_separation_time,'Stage Separation Time[s]>>')
-    window5.makeNumberBox(frame8,Upper_stage_mass,'Upper Stage Mass[kg]>>')
+    window5.makeNumberBox(frame8,upper_stage_mass,'Upper Stage Mass[kg]>>')
 
     enable_despin_control = tkinter.BooleanVar()
     despin_time = tkinter.StringVar()
@@ -745,15 +744,66 @@ def makeNewSequenceConfig_clicked(configpath):
     window5.makeCheckButton(frame12,enable_secondary_parachute_open,'Enable Secondary Parachute Open>>')
     window5.makeNumberBox(frame12,secondary_parachute_open_time,'Secondary Parachute Open Time[s]>>')
 
-    window5.makeButton(window5.makeFrame(13),'Execute JSONdump')
+    window5.makeButton(window5.makeFrame(13),'Execute JSONdump',lambda:makeNewSequenceConfigJson_clicked(configpath,name,flight_start_time,flight_end_time,time_step,enable_auto_terminate_sub_orbital,enable_rail_launcher,leng_rail,engine_ignittion_time,enable_engine_cutoff,cutoff_time,enable_program_attitude,attitude_control_starttime,attitude_control_endtime,enable_stage_separation,stage_separation_time,upper_stage_mass,enable_despin_control,despin_time,enable_fairing_jettson,jettson_time,fairing_mass,enable_parachute_open,parachute_open_time,enable_forced_apogee_open,enable_secondary_parachute_open,secondary_parachute_open_time))
 
     root5.mainloop()
 
+def makeNewSequenceConfigJson_clicked(entry,name,flight_start_time,flight_end_time,time_step,enable_auto_terminate_sub_orbital,enable_rail_launcher,leng_rail,engine_ignittion_time,enable_engine_cutoff,cutoff_time,enable_program_attitude,attitude_control_starttime,attitude_control_endtime,enable_stage_separation,stage_separation_time,upper_stage_mass,enable_despin_control,despin_time,enable_fairing_jettson,jettson_time,fairing_mass,enable_parachute_open,parachute_open_time,enable_forced_apogee_open,enable_secondary_parachute_open,secondary_parachute_open_time):
+    
+    config_json_dict = {
+	    "Flight Start Time [s]": flight_start_time,
+	    "Engine Ignittion Time [s]": flight_end_time,
+	    "Enable Rail-Launcher Launch": enable_rail_launcher,
+	    "Rail Launcher": {
+		    "Length [m]": leng_rail
+	    },
+	    "Enable Engine Cutoff": enable_engine_cutoff,
+	    "Cutoff": {
+		    "Cutoff Time [s]": cutoff_time
+	    },
+	    "Enable Program Attitude": enable_program_attitude,
+	    "Attitude Control": {
+		    "Start Time [s]": attitude_control_starttime,
+		    "End Time [s]": attitude_control_endtime
+	    },
+	    "Enable Stage Separation": enable_stage_separation,
+	    "Upper Stage": {
+		    "Stage Separation Time [s]": stage_separation_time,
+		    "Upper Stage Mass [kg]": upper_stage_mass
+	    },
+	    "Enable Despin Control": enable_despin_control,
+	    "Despin": {
+		    "Time [s]": despin_time
+	    },
+	    "Enable Fairing Jettson": enable_fairing_jettson,
+	    "Fairing": {
+		    "Jettson Time [s]": jettson_time,
+		    "Mass [s]": fairing_mass
+	    },
+	    "Enable Parachute Open": enable_parachute_open,
+	    "Parachute": {
+		    "Open Time [s]": parachute_open_time,
+		    "Enable Forced Apogee Open": enable_forced_apogee_open
+	    },
+	    "Enable Secondary Parachute Open": enable_secondary_parachute_open,
+	    "Secondary Parachute": {
+		    "Open Time [s]": secondary_parachute_open_time
+	    },
+	    "Flight End Time [s]": flight_end_time,
+	    "Time Step [s]": time_step,
+	    "Enable Auto Terminate SubOrbital Flight": enable_auto_terminate_sub_orbital
+    }
+
+    with open ((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'),'w') as f:
+        json.dump(config_json_dict, f, indent=4, ensure_ascii=False)
+
+    entry.set((os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json'))
+    print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 
 
 def main():
-    print('excalibar_alpha v0.1.4')
+    print('excalibar_alpha v1.0')
     root0 = tkinter.Tk()
     root0.protocol("WM_DELETE_WINDOW",lambda:terminate(root0))
     window0 = MakeSomething(master=root0,title='ForRocket for Human@entry')
