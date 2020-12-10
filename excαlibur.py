@@ -327,7 +327,7 @@ def makeNewStageConfig_clicked(configpath):
     window2.makeFiledialogBox(frame2,engine_configuration_file_path,'Engine Configuration File Path>>',[('jsonファイル','.json')])
     window2.makeButton(frame2,'新規ファイルを作成する(config.json)',command=lambda:makeNewEngineConfig_clicked(engine_configuration_file_path))
     window2.makeFiledialogBox(frame3,sequence_configuration_file_path,'Sequence Configuration File Path>>',[('jsonファイル','.json')])
-    window2.makeButton(frame3,'新規ファイルを作成する(config.json)',command=lambda:makeNewEngineConfig_clicked(sequence_configuration_file_path))
+    window2.makeButton(frame3,'新規ファイルを作成する(config.json)',command=lambda:makeNewSequenceConfig_clicked(sequence_configuration_file_path))
 
     frame5 = window2.makeFrame(5)
     window2.makeButton(frame5,'Execute JSONdump',command=lambda:makeNewStageConfigJson_clicked(configpath,stage_name.get(),rocket_configuration_file_path.get(),engine_configuration_file_path.get(),sequence_configuration_file_path.get()))
@@ -350,7 +350,7 @@ def makeNewStageConfigJson_clicked(entry,name,rocket_configuration_file_path,eng
 def makeNewRocketConfig_clicked(configpath):
     root3 = tkinter.Toplevel()
     root3.protocol("WM_DELETE_WINDOW",lambda:terminate(root3))
-    window3 = MakeSomething2(master=root3,width=1100,height=600,title='ForRocket for Human@new rocketconfig',scroll_height=1200)
+    window3 = MakeSomething2(master=root3,width=1100,height=600,title='ForRocket for Human@new rocket config',scroll_height=1200)
 
     name = tkinter.StringVar()
     frame0 = window3.makeFrame(0)
@@ -595,7 +595,7 @@ def makeNewRocketConfigJson_clicked(entry,name,diameter,length,inert,propellant,
 def makeNewEngineConfig_clicked(configpath):
     root4 = tkinter.Toplevel()
     root4.protocol("WM_DELETE_WINDOW",lambda:terminate(root4))
-    window4 = MakeSomething2(master=root4,width=1000,height=350,title='ForRocket for Human@new engineconfig',scroll_height=0)
+    window4 = MakeSomething2(master=root4,width=1000,height=350,title='ForRocket for Human@new engine config',scroll_height=0)
 
     name = tkinter.StringVar()
     frame0 = window4.makeFrame(0)
@@ -638,20 +638,20 @@ def makeNewEngineConfig_clicked(configpath):
 
 def makeNewEngineConfigJson_clicked(entry,name,nozzle_diameter,enable_thrustfile,thrustfilepath,thrust_vacuum,propellant_mass_flowrate,burn_duration,enable_engine_miss_alignment,y_axis,z_axis):
     config_json_dict = {
-        "Nozzle Exit Diameter [mm]": nozzle_diameter,
+        "Nozzle Exit Diameter [mm]": float(nozzle_diameter),
         "Enable Thrust File": enable_thrustfile,
         "Thrust File": {
             "Thrust at vacuum File Path": thrustfilepath
         },
         "Constant Thrust": {
-            "Thrust at vacuum [N]": thrust_vacuum,
-            "Propellant Mass Flow Rate [kg/s]": propellant_mass_flowrate,
-            "Burn Duration [sec]": burn_duration
+            "Thrust at vacuum [N]": float(thrust_vacuum),
+            "Propellant Mass Flow Rate [kg/s]": float(propellant_mass_flowrate),
+            "Burn Duration [sec]": float(burn_duration)
         },
         "Enable Engine Miss Alignment": enable_engine_miss_alignment,
         "Engine Miss-Alignment": {
-            "y-Axis Angle [deg]": y_axis,
-            "z-Axis Angle [deg]": z_axis
+            "y-Axis Angle [deg]": float(y_axis),
+            "z-Axis Angle [deg]": float(z_axis)
         }
     }
 
@@ -662,7 +662,95 @@ def makeNewEngineConfigJson_clicked(entry,name,nozzle_diameter,enable_thrustfile
     print(os.path.abspath(os.path.dirname(__file__))+'\\'+name+'.json is dumped')
 
 def makeNewSequenceConfig_clicked(configpath):
-    tkinter.messagebox.showinfo(title='warning!',message='工事中につき機能しません')
+    #tkinter.messagebox.showinfo(title='warning!',message='工事中につき機能しません')
+    root5 = tkinter.Toplevel()
+    root5.protocol("WM_DELETE_WINDOW",lambda:terminate(root5))
+    window5 = MakeSomething2(master=root5,width=1000,height=600,title='ForRocket for Human@new sequence config',scroll_height=350)
+
+    name = tkinter.StringVar()
+    window5.makeTextBox(window5.makeFrame(0),name,'filename>>')
+
+    flight_start_time = tkinter.StringVar()
+    flight_end_time = tkinter.StringVar()
+    time_step = tkinter.StringVar()
+    enable_auto_terminate_sub_orbital = tkinter.BooleanVar()
+    frame1 = window5.makeFrame(1)
+    window5.makeNumberBox(frame1,flight_start_time,'Flight Start Time[s]>>')
+    window5.makeNumberBox(frame1,flight_end_time,'Flight End Time[s]>>')
+    window5.makeNumberBox(frame1,time_step,'Time Step[s]>>',from_=0.01,increment=0.01)
+    window5.makeCheckButton(frame1,enable_auto_terminate_sub_orbital,'Enable Auto Terminate SubOrbital Flight>>')
+
+    engine_ignittion_time = tkinter.StringVar()
+    window5.makeNumberBox(window5.makeFrame(2),engine_ignittion_time,'Engine Ignition Time[s]>>')
+
+    enable_rail_launcher = tkinter.BooleanVar()
+    leng_rail = tkinter.StringVar()
+    frame3 = window5.makeFrame(3)
+    window5.makeCheckButton(frame3,enable_rail_launcher,'Enable Rail-Launcher Launch>>')
+    window5.makeNumberBox(frame3,leng_rail,'Rail Launcher Length[m]>>')
+
+    enable_engine_cutoff = tkinter.BooleanVar()
+    cutoff_time = tkinter.StringVar()
+    frame4 = window5.makeFrame(4)
+    window5.makeCheckButton(frame4,enable_engine_cutoff,'Enable Engine Cutoff>>')
+    window5.makeNumberBox(frame4,cutoff_time,'Engine Cutoff Time[s]>>')
+
+    enable_program_attitude = tkinter.BooleanVar()
+    attitude_control_starttime = tkinter.StringVar()
+    attitude_control_endtime = tkinter.StringVar()
+    frame5 = window5.makeFrame(5)
+    window5.makeText(frame5,'Attitude Control')
+    frame6 = window5.makeFrame(6)
+    window5.makeCheckButton(frame6,enable_program_attitude,'Enable Program Attitude>>')
+    window5.makeNumberBox(frame6,attitude_control_starttime,'StartTime[s]>>')
+    window5.makeNumberBox(frame6,attitude_control_endtime,'EndTime[s]>>')
+
+    enable_stage_separation = tkinter.BooleanVar()
+    stage_separation_time = tkinter.StringVar()
+    Upper_stage_mass = tkinter.StringVar()
+    frame7 = window5.makeFrame(7)
+    window5.makeText(frame7,'Upper Stage Config')
+    
+    frame8 = window5.makeFrame(8)
+    window5.makeCheckButton(frame8,enable_stage_separation,'Enable Stage Separation>>')
+    window5.makeNumberBox(frame8,stage_separation_time,'Stage Separation Time[s]>>')
+    window5.makeNumberBox(frame8,Upper_stage_mass,'Upper Stage Mass[kg]>>')
+
+    enable_despin_control = tkinter.BooleanVar()
+    despin_time = tkinter.StringVar()
+    frame9 = window5.makeFrame(9)
+    window5.makeCheckButton(frame9,enable_despin_control,'Enable Despin Control>>')
+    window5.makeNumberBox(frame9,despin_time,'Despin Time[s]>>')
+
+    enable_fairing_jettson = tkinter.BooleanVar()
+    jettson_time = tkinter.StringVar()
+    fairing_mass = tkinter.StringVar()
+    frame10 = window5.makeFrame(10)
+    window5.makeCheckButton(frame10,enable_fairing_jettson,'Enable Fairing Jettson>>')
+    window5.makeNumberBox(frame10,jettson_time,'Jettson Time[s]>>')
+    window5.makeNumberBox(frame10,fairing_mass,'Fairing Mass[kg※]')
+    window5.makeText(frame10,'※サンプルの単位はsだけど明らかに質量っぽい...')
+
+    enable_parachute_open = tkinter.BooleanVar()
+    parachute_open_time = tkinter.StringVar()
+    enable_forced_apogee_open = tkinter.BooleanVar()
+    frame11 = window5.makeFrame(11)
+    window5.makeCheckButton(frame11,enable_parachute_open,'Enable Parachute Open>>')
+    window5.makeNumberBox(frame11,parachute_open_time,'Parachute Open Time[s]>>')
+    window5.makeCheckButton(frame11,enable_forced_apogee_open,'Enable Forced Apogee Open')
+
+    enable_secondary_parachute_open = tkinter.BooleanVar()
+    secondary_parachute_open_time = tkinter.StringVar()
+    frame12 = window5.makeFrame(12)
+    window5.makeCheckButton(frame12,enable_secondary_parachute_open,'Enable Secondary Parachute Open>>')
+    window5.makeNumberBox(frame12,secondary_parachute_open_time,'Secondary Parachute Open Time[s]>>')
+
+    window5.makeButton(window5.makeFrame(13),'Execute JSONdump')
+
+    root5.mainloop()
+
+
+
 
 def main():
     print('excalibar_alpha v0.1.4')
@@ -671,7 +759,7 @@ def main():
     window0 = MakeSomething(master=root0,title='ForRocket for Human@entry')
 
     frame0 = window0.makeFrame(0)
-    window0.makeText(frame0,'これはForRocket用簡易GUI＆設定ファイル作成支援システムです')
+    window0.makeText(frame0,'これはForRocket用簡易GUIフロントエンド＆設定ファイル作成支援ソフトです')
 
     frame1 = window0.makeFrame(row=1,column=0)
     configfilepath = tkinter.StringVar()
