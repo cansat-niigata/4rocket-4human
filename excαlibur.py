@@ -744,53 +744,53 @@ def makeNewSequenceConfig_clicked(configpath):
     window5.makeCheckButton(frame12,enable_secondary_parachute_open,'Enable Secondary Parachute Open>>')
     window5.makeNumberBox(frame12,secondary_parachute_open_time,'Secondary Parachute Open Time[s]>>')
 
-    window5.makeButton(window5.makeFrame(13),'Execute JSONdump',lambda:makeNewSequenceConfigJson_clicked(configpath,name,flight_start_time,flight_end_time,time_step,enable_auto_terminate_sub_orbital,enable_rail_launcher,leng_rail,engine_ignittion_time,enable_engine_cutoff,cutoff_time,enable_program_attitude,attitude_control_starttime,attitude_control_endtime,enable_stage_separation,stage_separation_time,upper_stage_mass,enable_despin_control,despin_time,enable_fairing_jettson,jettson_time,fairing_mass,enable_parachute_open,parachute_open_time,enable_forced_apogee_open,enable_secondary_parachute_open,secondary_parachute_open_time))
+    window5.makeButton(window5.makeFrame(13),'Execute JSONdump',lambda:makeNewSequenceConfigJson_clicked(configpath.get(),name.get(),flight_start_time.get(),flight_end_time.get(),time_step.get(),enable_auto_terminate_sub_orbital.get(),enable_rail_launcher.get(),leng_rail.get(),engine_ignittion_time.get(),enable_engine_cutoff.get(),cutoff_time.get(),enable_program_attitude.get(),attitude_control_starttime.get(),attitude_control_endtime.get(),enable_stage_separation.get(),stage_separation_time.get(),upper_stage_mass.get(),enable_despin_control.get(),despin_time.get(),enable_fairing_jettson.get(),jettson_time.get(),fairing_mass.get(),enable_parachute_open.get(),parachute_open_time.get(),enable_forced_apogee_open.get(),enable_secondary_parachute_open.get(),secondary_parachute_open_time.get()))
 
     root5.mainloop()
 
 def makeNewSequenceConfigJson_clicked(entry,name,flight_start_time,flight_end_time,time_step,enable_auto_terminate_sub_orbital,enable_rail_launcher,leng_rail,engine_ignittion_time,enable_engine_cutoff,cutoff_time,enable_program_attitude,attitude_control_starttime,attitude_control_endtime,enable_stage_separation,stage_separation_time,upper_stage_mass,enable_despin_control,despin_time,enable_fairing_jettson,jettson_time,fairing_mass,enable_parachute_open,parachute_open_time,enable_forced_apogee_open,enable_secondary_parachute_open,secondary_parachute_open_time):
     
     config_json_dict = {
-	    "Flight Start Time [s]": flight_start_time,
-	    "Engine Ignittion Time [s]": flight_end_time,
+	    "Flight Start Time [s]": float(flight_start_time),
+	    "Engine Ignittion Time [s]": float(flight_end_time),
 	    "Enable Rail-Launcher Launch": enable_rail_launcher,
 	    "Rail Launcher": {
-		    "Length [m]": leng_rail
+		    "Length [m]": float(leng_rail)
 	    },
 	    "Enable Engine Cutoff": enable_engine_cutoff,
 	    "Cutoff": {
-		    "Cutoff Time [s]": cutoff_time
+		    "Cutoff Time [s]": float(cutoff_time)
 	    },
 	    "Enable Program Attitude": enable_program_attitude,
 	    "Attitude Control": {
-		    "Start Time [s]": attitude_control_starttime,
-		    "End Time [s]": attitude_control_endtime
+		    "Start Time [s]": float(attitude_control_starttime),
+		    "End Time [s]": float(attitude_control_endtime)
 	    },
 	    "Enable Stage Separation": enable_stage_separation,
 	    "Upper Stage": {
-		    "Stage Separation Time [s]": stage_separation_time,
-		    "Upper Stage Mass [kg]": upper_stage_mass
+		    "Stage Separation Time [s]": float(stage_separation_time),
+		    "Upper Stage Mass [kg]": float(upper_stage_mass)
 	    },
 	    "Enable Despin Control": enable_despin_control,
 	    "Despin": {
-		    "Time [s]": despin_time
+		    "Time [s]": float(despin_time)
 	    },
 	    "Enable Fairing Jettson": enable_fairing_jettson,
 	    "Fairing": {
-		    "Jettson Time [s]": jettson_time,
-		    "Mass [s]": fairing_mass
+		    "Jettson Time [s]": float(jettson_time),
+		    "Mass [s]": float(fairing_mass)
 	    },
 	    "Enable Parachute Open": enable_parachute_open,
 	    "Parachute": {
-		    "Open Time [s]": parachute_open_time,
+		    "Open Time [s]": float(parachute_open_time),
 		    "Enable Forced Apogee Open": enable_forced_apogee_open
 	    },
 	    "Enable Secondary Parachute Open": enable_secondary_parachute_open,
 	    "Secondary Parachute": {
-		    "Open Time [s]": secondary_parachute_open_time
+		    "Open Time [s]": float(secondary_parachute_open_time)
 	    },
-	    "Flight End Time [s]": flight_end_time,
-	    "Time Step [s]": time_step,
+	    "Flight End Time [s]": float(flight_end_time),
+	    "Time Step [s]": float(time_step),
 	    "Enable Auto Terminate SubOrbital Flight": enable_auto_terminate_sub_orbital
     }
 
