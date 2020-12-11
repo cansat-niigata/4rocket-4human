@@ -5,7 +5,7 @@
 
 ### MSYS2のインストール
 
-* まずMSYS2をインストールする`https://www.msys2.org`
+* まずMSYS2をインストールする( https://www.msys2.org )
 
 ### いろいろインストール
 
