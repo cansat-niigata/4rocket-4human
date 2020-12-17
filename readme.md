@@ -54,3 +54,4 @@ TEST_FLAGS=-O0 -g -DDEBUG
 * binディレクトリにForRocket.exeができるので好きなところに移動してpowershellかコマンドプロンプトでつかう
 
 * えくすかりばと同じディレクトリに置いてくれたらそれからも使える...と思う 
+* Pythonで開く　から起動するとForRocketにアクセスできないっぽい→コマンドプロンプトかPowerShellから起動してほしい
