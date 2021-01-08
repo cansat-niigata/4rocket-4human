@@ -64,3 +64,10 @@ TEST_FLAGS=-O0 -g -DDEBUG
 rocket.setCdSParachute(jc.getSubItem("Constant CdS Parachute").getDouble("Constant CdS [-]"));
 ```
 にするとcdsの値が後から設定できるかもしれない？
+
+/src/solver/rocket_stage.cppの中の
+```
+fdr.dump_csvをfdr.DumpCsv
+```
+に置換するとmakeのときにエラーがでなくなるっぽい?
+
