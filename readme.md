@@ -56,3 +56,11 @@ TEST_FLAGS=-O0 -g -DDEBUG
 * ~~えくすかりば~~フロントエンドと同じディレクトリに置いてくれたらそれからも使える...と思う 
 * Pythonで開く　から起動するとForRocketにアクセスできないっぽい→コマンドプロンプトかPowerShellから起動してほしい
 ~~結局コマンドラインから起動するんじゃ意味なくない？~~
+
+### 本当はまずいかもしれないけど
+* ソースコードをいじる
+/src/factory/rocket_factory.cppの117行目を
+```
+rocket.setCdSParachute(jc.getSubItem("Constant CdS Parachute").getDouble("Constant CdS [-]"));
+```
+にするとcdsの値が後から設定できるかもしれない？
