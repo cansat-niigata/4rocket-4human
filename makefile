@@ -4,7 +4,7 @@ CXX=g++
 
 ## Compiler Option
 ####################################
-CXXFLAGS=-Wall -std=gnu++11
+CXXFLAGS=-Wall -std=gnu++11 -static -lstdc++ -lgcc -lwinpthread
 RELEASE_FLAGS=-O2
 
 TEST_FLAGS=-O0 -g -DDEBUG
