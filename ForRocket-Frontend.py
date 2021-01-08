@@ -350,7 +350,7 @@ def makeNewStageConfigJson_clicked(entry,name,rocket_configuration_file_path,eng
 def makeNewRocketConfig_clicked(configpath):
     root3 = tkinter.Toplevel()
     root3.protocol("WM_DELETE_WINDOW",lambda:terminate(root3))
-    window3 = MakeSomething2(master=root3,width=1100,height=600,title='ForRocket for Human@new rocket config',scroll_height=1200)
+    window3 = MakeSomething2(master=root3,width=1100,height=650,title='ForRocket for Human@new rocket config',scroll_height=1250)
 
     name = tkinter.StringVar()
     frame0 = window3.makeFrame(0)
@@ -488,8 +488,12 @@ def makeNewRocketConfig_clicked(configpath):
     window3.makeCheckButton(frame26,enable_cnr,'Enable Cnr File>>')
     window3.makeFiledialogBox(frame26,cnr_filepath,'Cnr File Path>>',[('csvファイル','.csv')])
 
-    frame27 = window3.makeFrame(27)
-    window3.makeButton(frame27,'Execute JSONdump',command=lambda:makeNewRocketConfigJson_clicked(configpath,name.get(),diameter.get(),length.get(),inert.get(),propellant.get(),enable_program_attitude.get(),program_attitude_filepath.get(),enable_xcg.get(),constant_xcg.get(),xcg_filepath.get(),enable_mi.get(),constant_mi_yaw.get(),constant_mi_picth.get(),constant_mi_roll.get(),mi_filepath.get(),enable_xcp.get(),constant_xcp.get(),xcp_filepath.get(),enable_ca.get(),constant_ca.get(),ca_filepath.get(),enable_ca_burnout.get(),constant_ca_burnout.get(),ca_burnout_filepath.get(),enable_cna.get(),constant_cna.get(),cna_filepath.get(),enable_cld.get(),fin_cant_angle.get(),constant_cld.get(),cld_filepath.get(),enable_clp.get(),constant_clp.get(),clp_filepath.get(),enable_cmq.get(),constant_cmq.get(),cmq_filepath.get(),enable_cnr.get(),constant_cnr.get(),cnr_filepath.get()))
+    constant_cds = tkinter.StringVar()
+    constant_cds.set('1.5')
+    window3.makeNumberBox(window3.makeFrame(27),constant_cds,'CdS for Parachute[-]>>',increment=0.1)
+
+    frame27 = window3.makeFrame(28)
+    window3.makeButton(frame27,'Execute JSONdump',command=lambda:makeNewRocketConfigJson_clicked(configpath,name.get(),diameter.get(),length.get(),inert.get(),propellant.get(),enable_program_attitude.get(),program_attitude_filepath.get(),enable_xcg.get(),constant_xcg.get(),xcg_filepath.get(),enable_mi.get(),constant_mi_yaw.get(),constant_mi_picth.get(),constant_mi_roll.get(),mi_filepath.get(),enable_xcp.get(),constant_xcp.get(),xcp_filepath.get(),enable_ca.get(),constant_ca.get(),ca_filepath.get(),enable_ca_burnout.get(),constant_ca_burnout.get(),ca_burnout_filepath.get(),enable_cna.get(),constant_cna.get(),cna_filepath.get(),enable_cld.get(),fin_cant_angle.get(),constant_cld.get(),cld_filepath.get(),enable_clp.get(),constant_clp.get(),clp_filepath.get(),enable_cmq.get(),constant_cmq.get(),cmq_filepath.get(),enable_cnr.get(),constant_cnr.get(),cnr_filepath.get(),constant_cds.get()))
 
     root3.mainloop()
 
@@ -497,7 +501,7 @@ def enableprogramattitude_message(var):
     if var.get() == True:
         tkinter.messagebox.showinfo('caution!',message='姿勢制御はsequence_of_event.jsonでも有効である必要があります')
 
-def makeNewRocketConfigJson_clicked(entry,name,diameter,length,inert,propellant,enable_program_attitude,program_attitude_filepath,enable_xcg,constant_xcg,xcg_filepath,enable_mi,constant_mi_yaw,constant_mi_picth,constant_mi_roll,mi_filepath,enable_xcp,constant_xcp,xcp_filepath,enable_ca,constant_ca,ca_filepath,enable_ca_burnout,constant_ca_burnout,ca_burnout_filepath,enable_cna,constant_cna,cna_filepath,enable_cld,fin_cant_angle,constant_cld,cld_filepath,enable_clp,constant_clp,clp_filepath,enable_cmq,constant_cmq,cmq_filepath,enable_cnr,constant_cnr,cnr_filepath):
+def makeNewRocketConfigJson_clicked(entry,name,diameter,length,inert,propellant,enable_program_attitude,program_attitude_filepath,enable_xcg,constant_xcg,xcg_filepath,enable_mi,constant_mi_yaw,constant_mi_picth,constant_mi_roll,mi_filepath,enable_xcp,constant_xcp,xcp_filepath,enable_ca,constant_ca,ca_filepath,enable_ca_burnout,constant_ca_burnout,ca_burnout_filepath,enable_cna,constant_cna,cna_filepath,enable_cld,fin_cant_angle,constant_cld,cld_filepath,enable_clp,constant_clp,clp_filepath,enable_cmq,constant_cmq,cmq_filepath,enable_cnr,constant_cnr,cnr_filepath,constant_cds):
     config_json_dict = {
         "Diameter [mm]":float(diameter),
         "Length [mm]":float(length),
@@ -583,6 +587,9 @@ def makeNewRocketConfigJson_clicked(entry,name,diameter,length,inert,propellant,
         },
         "Constant Cnr":{
             "Constant Cnr [-]":constant_cnr
+        },
+        "Constant CdS":{
+            "Constant CdS [-]":constant_cds
         }
     }
     
